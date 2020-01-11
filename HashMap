@@ -1,0 +1,19 @@
+灵魂式拷问：
+1.HashMap是什么
+2.HashMap有哪些特点
+3.HashMap实现原理
+4.HashMap有哪些弊端，该如何优化
+
+1.HashMap实现了Map<K,V>接口，提供key,value键值对式数据存取服务，并且HashMap能够允许key,value为null，并且HashMap内部存储无序，非同步
+2.HashMap特点：
+
+3.HashMap实现原理：
+1)HashMap实现了Map<K,V>接口
+2)HashMap中含有两个参数，Capacity(容量)与Load Factor（负载因子），因为HashMap处理的是，通过对key进行Hash，得到index存储到bucket中，因此，应该尽量避免碰撞冲突，其次，如果遇到冲突了，使用哪种策略进行冲突避免(HashMap中使用的是使用链表)。在java中，每个对象都会有个hashcode,继承自Object对象。
+3)HashMap主要两个操作：get与put
+get操作：先到第一个bucket中找，如果找到了，首次就命中，否则进入链表中找，或者是进入红黑树中查找
+put操作：先根据key，value，进行hash，得到index，如果当前index存在该值，则进行更新，如果bucket长度超过Capacity*Load_Factor，则进行扩容，大小为原来的2倍，如果发生碰撞，则加入到对应的链表中，如果链表长度长度超过给定的阈值，则将链表转化为红黑树
+
+4.HashMap无序，并且非同步
+1）通过CocurrentHashMap代替HashMap
+2)
