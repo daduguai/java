@@ -6,6 +6,7 @@
 
 1.HashMap实现了Map<K,V>接口，提供key,value键值对式数据存取服务，并且HashMap能够允许key,value为null，并且HashMap内部存储无序，非同步
 2.HashMap特点：
+查找效率很高，java8中做了优化，在生成hashcode的时候加入了扰动，减少了hash碰撞产生；另外，使用了hash桶+链表+红黑树机制来处理碰撞
 
 3.HashMap实现原理：
 1)HashMap实现了Map<K,V>接口
@@ -15,5 +16,8 @@ get操作：先到第一个bucket中找，如果找到了，首次就命中，�
 put操作：先根据key，value，进行hash，得到index，如果当前index存在该值，则进行更新，如果bucket长度超过Capacity*Load_Factor，则进行扩容，大小为原来的2倍，如果发生碰撞，则加入到对应的链表中，如果链表长度长度超过给定的阈值，则将链表转化为红黑树
 
 4.HashMap无序，并且非同步
+HashMap非同步体现：
+1）在多个线程进行插入的时候，如果两个key通过hash得到相同的index，此时可能出现一个值覆盖另一个值
+2）在进行resize过程中，原来的链表后面的节点，需要重新hash，并存储到新的内存中，此时多个线程并发，可能会导致无限循环
 1）通过CocurrentHashMap代替HashMap
-2)
+2) 通过使用Collections.synchronizedMap(new HashMap<>()),实现同步
